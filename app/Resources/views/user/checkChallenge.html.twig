@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('app_user_addtochallenge', {'id': challenge.id}) }}"><button class="btn btn-primary">Dodaj repsy</button></a>
+    <a href="{{ path('app_user_listchallenge') }}"><button class="btn btn-primary">Wróć</button></a>
+
+    <br/>
+    <strong>Wyzwanie:</strong> {{ challenge.exercise }} <br/>
+    <strong>Ilosc:</strong> {{ challenge.amount }}<br/>
+    <strong>Czas na wyzwanie:</strong> {{ challenge.time|date("m/d/Y H:i:s")}} <br/>
+    <strong>Status:</strong> {% if challenge.done == 1 %}
+                Ukończone
+            {% elseif challenge.done == 2 %}
+                Nie ukończone
+            {% else %}
+                 W trakcie
+            {% endif %}
+    <br/>
+
+<br/>
+<br/>
+    <h2>Do zrobienia: {{ repsToDo }}</h2>
+    <h2>Zostało: {{ repsLeft }}</h2>
+<br/>
+    <h2>Historia</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ilosc</th>
+            <th scope="col">Data dodania</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+        </tr>
+        {% for exercise in historyOfChallenge %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ exercise.amount }}</td>
+            <td>{{ exercise.date|date("m/d/Y") }}</td>
+            <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ exercise.id }}" aria-hidden="true"></span></td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script> var removeUrl = '{{ path('app_user_deleteexercise', {'id': 'elementId'}) }}'; </script>
+    <script src="{{ asset('js/deleteRow.js')}}"></script>
+{% endblock %}
