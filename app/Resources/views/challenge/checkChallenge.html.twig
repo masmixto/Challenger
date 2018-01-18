@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_user_addtochallenge', {'id': challenge.id}) }}"><button class="btn btn-primary">Dodaj repsy</button></a>
-    <a href="{{ path('app_user_listchallenge') }}"><button class="btn btn-primary">Wróć</button></a>
+    <a href="{{ path('app_challenge_addtochallenge', {'id': challenge.id}) }}"><button class="btn btn-primary">Dodaj repsy</button></a>
+    <a href="{{ path('app_challenge_listchallenge') }}"><button class="btn btn-primary">Wróć</button></a>
 
     <br/>
     <strong>Wyzwanie:</strong> {{ challenge.exercise }} <br/>
