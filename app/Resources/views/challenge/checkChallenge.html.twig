@@ -2,7 +2,7 @@
 
 {% block body %}
     <a href="{{ path('app_challenge_addtochallenge', {'id': challenge.id}) }}"><button class="btn btn-primary">Dodaj repsy</button></a>
-    <a href="{{ path('app_challenge_listchallenge') }}"><button class="btn btn-primary">Wróć</button></a>
+    <a href="{{ path('app_challenge_index') }}"><button class="btn btn-primary">Wróć</button></a>
 
     <br/>
     <strong>Wyzwanie:</strong> {{ challenge.exercise }} <br/>
@@ -51,6 +51,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script> var removeUrl = '{{ path('app_user_deleteexercise', {'id': 'elementId'}) }}'; </script>
+    <script> var removeUrl = '{{ path('app_challenge_deleteexercise', {'id': 'elementId'}) }}'; </script>
     <script src="{{ asset('js/deleteRow.js')}}"></script>
 {% endblock %}

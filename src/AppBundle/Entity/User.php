@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -22,17 +23,6 @@ class User extends BaseUser
      */
     protected $id;
 
-
-
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\Length(
-     *      min = 11,
-     *      max = 11,
-     * )
-     */
-    private $pesel;
-
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -42,22 +32,6 @@ class User extends BaseUser
      * @ORM\Column(type="string", nullable=true)
      */
     private $surname;
-
-    /**
-     * @return mixed
-     */
-    public function getPesel()
-    {
-        return $this->pesel;
-    }
-
-    /**
-     * @param mixed $pesel
-     */
-    public function setPesel($pesel)
-    {
-        $this->pesel = $pesel;
-    }
 
     /**
      * @return mixed
@@ -102,6 +76,5 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 }
