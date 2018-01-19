@@ -20,6 +20,8 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\OneToMany(targetEntity="Challenge", mappedBy="userid")
+     * @ORM\OneToMany(targetEntity="Relationships", mappedBy="userOneId")
+     * @ORM\OneToMany(targetEntity="Relationships", mappedBy="userTwoId")
      */
     protected $id;
 

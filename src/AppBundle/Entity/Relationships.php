@@ -27,12 +27,14 @@ class Relationships
      * @var int
      *
      * @ORM\Column(name="user_one_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
      */
     private $userOneId;
 
     /**
      * @var int
      * @ORM\Column(name="user_two_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
      */
     private $userTwoId;
 
@@ -134,6 +136,8 @@ class Relationships
     /**
      * Get status
      *
+     *
+     *
      * @return int
      */
     public function getStatus()
@@ -164,5 +168,6 @@ class Relationships
     {
         return $this->actionUserId;
     }
+
 }
 

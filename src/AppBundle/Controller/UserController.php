@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Relationships;
 use AppBundle\Form\findFriendsType;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -59,21 +60,26 @@ class UserController extends Controller
         ));
     }
 
-   /*
+    /**
+     * @Route("/addFriend/{id}")
+     */
     public function addFriendAction(User $user)
     {
-        $userId = $user->getId();
-        var_dump($userId);
+        $friendId = $user->getId();
+        $userId = $this->getUser()->getId();
+
+       $users = $this->compareId($userId, $friendId);
+
         $em = $this->getDoctrine()->getManager();
+        $relation = new Relationships();
+        $relation->setUserOneId($users[0]);
+        $relation->setUserTwoId($users[1]);
+        $relation->setActionUserId($userId);
 
-
-        $em->persist($newFriend);
+        $em->persist($relation);
         $em->flush();
-
-
         return $this->json('dodano');
-
-    }*/
+    }
 
 
 
@@ -81,16 +87,65 @@ class UserController extends Controller
      * @Route("/friendList")
      */
     public function friendListAction(){
-        $user = $this->getUser();
-        $friends = $user->getMyFriends();
-        $names = array();
-        foreach($friends as $friend){
-            $names[] = $friend->getName();
+        $friendsId=array();
+        $friends = array();
+
+        $userId = $this->getUser()->getId();
+        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId);
+
+        if(isset($friendList)) {
+            foreach ($friendList as $friend) {
+               $friendsId[] = $this->checkUserIdInRealtionAction($friend['userOneId'], $friend['userTwoId']);
+            }
+        }
+        foreach($friendsId as $friendId){
+             $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
+             if($oneRecord!=null){
+                 $friends[]=$oneRecord;
+             }
         }
 
         return $this->render('user/friendList.html.twig', array(
-            'names' => $names
+            'friends' => $friends
         ));
     }
 
+
+
+
+
+    //HELPER METHODS
+
+
+    /**
+     * compare ids
+     * check for less value to add to database (always less as user one id)
+     *
+     * $result[0] - lower value
+     * $result[1] - bigger value
+     *
+     */
+    public function compareId($idOne, $idTwo){
+        $result = array();
+        if($idOne<$idTwo){
+            $result[]=$idOne;
+            $result[]=$idTwo;
+        }
+        else{
+            $result[]=$idTwo;
+            $result[]=$idOne;
+        }
+        return $result;
+    }
+
+    public function checkUserIdInRealtionAction($userOneId, $userTwoId){
+        $userId = $this->getUser()->getId();
+        if($userId==$userOneId){
+            $result = $userTwoId;
+        }
+        else{
+            $result = $userOneId;
+        }
+        return $result;
+    }
 }
