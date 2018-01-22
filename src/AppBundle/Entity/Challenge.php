@@ -54,7 +54,7 @@ class Challenge
     /**
      * @var string
      * @ORM\Column(name="userid", type="string", length=255)
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="user", inversedBy="id")
      */
 
     private $userid;

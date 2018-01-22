@@ -81,6 +81,26 @@ class UserController extends Controller
         return $this->json('dodano');
     }
 
+    /**
+     * @Route("/acceptFriendRequest/{id}")
+     */
+    public function acceptFriendRequest(User $user)
+    {
+        $friendId = $user->getId();
+        $userId = $this->getUser()->getId();
+
+        $users = $this->compareId($userId, $friendId);
+
+        $relation = $this->getDoctrine()->getRepository('AppBundle:Relationships')->findOneBy(array('userOneId'=>$users[0], 'userTwoId'=>$users[1]));
+
+        $relation->setStatus(1);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($relation);
+        $em->flush();
+        return $this->json('akceptowano');
+    }
+
 
 
     /**
@@ -91,23 +111,82 @@ class UserController extends Controller
         $friends = array();
 
         $userId = $this->getUser()->getId();
-        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId);
+        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId,$status=1);
 
         if(isset($friendList)) {
             foreach ($friendList as $friend) {
                $friendsId[] = $this->checkUserIdInRealtionAction($friend['userOneId'], $friend['userTwoId']);
             }
+
+            foreach($friendsId as $friendId){
+                $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
+                if($oneRecord!=null){
+                    $friends[]=$oneRecord;
+                }
+            }
         }
-        foreach($friendsId as $friendId){
-             $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
-             if($oneRecord!=null){
-                 $friends[]=$oneRecord;
-             }
-        }
+
 
         return $this->render('user/friendList.html.twig', array(
             'friends' => $friends
         ));
+    }
+
+    /**
+     * @Route("/friendRequests")
+     */
+    public function friendRequestsAction(){
+        $userId = $this->getUser()->getId();
+        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId, $status=0);
+        $friends = null;
+
+        if($friendList) {
+            foreach ($friendList as $friend) {
+                $friendsId[] = $this->checkUserIdInRealtionAction($friend['userOneId'], $friend['userTwoId']);
+            }
+            foreach($friendsId as $friendId){
+                $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
+                if($oneRecord!=null){
+                    $friends[]=$oneRecord;
+                }
+            }
+        }
+
+
+        return $this->render('user/friendsRequest.html.twig', array(
+            'friends' => $friends
+        ));
+    }
+
+
+
+    /**
+     * @Route("/friends/delete/{id}")
+     */
+    public function deleteFriendAction(Request $request, User $user)
+    {
+        $userId = $user->getId();
+        $user = $this->getUser()->getId();
+
+        $users = $this->compareId($userId, $user);
+
+        $relation = $this->getDoctrine()->getRepository('AppBundle:Relationships')->findOneBy(array('userOneId'=>$users[0], 'userTwoId'=>$users[1]));
+
+
+        if (!$userId) {
+            throw $this->createNotFoundException('Nie znaleziono relacji o id: ' . $userId);
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($relation);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Usunięto rekord'
+            );
+
+            return $this->json('Usunieto');
+        }
     }
 
 

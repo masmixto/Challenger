@@ -10,12 +10,13 @@ namespace AppBundle\Repository;
  */
 class RelationshipsRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function showFriends($userId){
+    public function showFriends($userId, $status){
             $qb=$this->createQueryBuilder('o');
             return $qb
                 ->select('o.userOneId', 'o.userTwoId')
-                ->where('o.userOneId=:userid or o.userTwoId=:userid and o.status=1')
+                ->where('o.status=:status AND (o.userOneId=:userid OR o.userTwoId=:userid)')
                 ->setParameter('userid', $userId)
+                ->setParameter('status', $status)
                 ->getQuery()
                 ->getResult();
         }

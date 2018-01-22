@@ -15,7 +15,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $qb=$this->createQueryBuilder('o');
         return $qb
             ->where('o.username LIKE :username')
-            ->leftJoin('p.User')
             ->setParameter('username', '%'.$username.'%')
             ->getQuery()
             ->getResult();
