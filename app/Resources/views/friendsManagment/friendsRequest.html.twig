@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tr>
+            <th class="column">#</th>
+            <th class="column">Imie</th>
+            <th class="column"></th>
+        </tr>
+        {% for friend in friends %}
+        <tr>
+            <th>{{ loop.index }}</th>
+            <td>{{ friend.username }}</td>
+            <td><a href="{{ path('app_friend_accept', {'id': friend.id}) }}"><span class="glyphicon glyphicon-ok js-acceptFriendRequest" val="{{ friend.id }}"></span></a></td>
+            <td><a href="{{ path('app_friend_block', {'id': friend.id}) }}"><span class="glyphicon glyphicon-minus-sign" val="{{ friend.id }}"></span></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script> var acceptFriendRequest = '{{ path('app_friend_accept', {'id': 'elementId'}) }}'; </script>
+    <script src="{{ asset('js/acceptFriendRequest.js')}}"></script>
+{% endblock %}

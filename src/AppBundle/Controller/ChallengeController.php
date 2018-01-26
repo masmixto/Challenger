@@ -24,18 +24,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ChallengeController extends Controller
 {
+
     /**
      * @Route("/")
      */
     public function indexAction(){
         $userid = $this->getUser()->getId();
-
         $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->challangerUser($userid);
 
         return $this->render('challenge/challenges.html.twig', array(
             'challenges' => $challenges
         ));
     }
+
 
     /**
      * @Route("/addChallenge")
@@ -45,8 +46,7 @@ class ChallengeController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ChallengeType::class, null, array(
-        ));
+        $form = $this->createForm(ChallengeType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -81,16 +81,15 @@ class ChallengeController extends Controller
     }
 
 
-
     /**
      * @Route("/challenges/delete/{id}")
      */
-    public function deleteChallengeAction(Request $request, Challenge $challenge)
+    public function deleteChallengeAction(Challenge $challenge)
     {
         $id = $challenge->getId();
         if (!$challenge) {
             throw $this->createNotFoundException('Nie znaleziono rekordu o id: ' . $id);
-        } else {
+        }
             $em = $this->getDoctrine()->getManager();
             $em->remove($challenge);
             $em->flush();
@@ -101,18 +100,19 @@ class ChallengeController extends Controller
             );
 
             return $this->json('Usunieto');
-        }
+
     }
+
 
     /**
      * @Route("/checkChallenge/{id}/deleteExercise")
      */
-    public function deleteExerciseAction(Request $request, Exercise $exercise)
+    public function deleteExerciseAction(Exercise $exercise)
     {
         $id = $exercise->getId();
         if (!$exercise) {
             throw $this->createNotFoundException('Nie znaleziono rekordu o id: ' . $id);
-        } else {
+        }
             $em = $this->getDoctrine()->getManager();
             $em->remove($exercise);
             $em->flush();
@@ -121,9 +121,7 @@ class ChallengeController extends Controller
                 'Usunięto rekord'
             );
             return $this->json('Usuniete');
-        }
     }
-
 
 
     /**
@@ -167,6 +165,7 @@ class ChallengeController extends Controller
         ));
     }
 
+
     /**
      * @Route("/checkChallenge/{id}/add")
      */
@@ -175,8 +174,7 @@ class ChallengeController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ExerciseChallengeType::class, null, array(
-        ));
+        $form = $this->createForm(ExerciseChallengeType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -200,4 +198,5 @@ class ChallengeController extends Controller
             'form' => $form->createView()
         ));
     }
+
 }

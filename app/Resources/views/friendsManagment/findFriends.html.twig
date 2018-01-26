@@ -17,7 +17,8 @@
         <tr>
             <td>{{ loop.index }}</td>
             <td>{{ found }}</td>
-            <td><a href="{{ path('app_user_addfriend', {'id': found.id}) }}"><span class="glyphicon glyphicon-plus js-addFriend" val="{{ found.id }}"></span></a></td>
+            {#<td><a href="{{ path('app_user_addfriend', {'id': found.id}) }}"><span class="glyphicon glyphicon-plus js-addFriend" val="{{ found.id }}"></span></a></td>#}
+            <td><span class="glyphicon glyphicon-plus js-addFriend" val="{{ found.id }}"></span></td>
         </tr>
         {% endfor %}
     </table>
@@ -28,6 +29,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script> var sendFriendRequest = '{{ path('app_user_addfriend', {'id': 'elementId'}) }}'; </script>
+    <script> var sendFriendRequest = '{{ path('app_friend_add', {'id': 'elementId'}) }}'; </script>
     <script src="{{ asset('js/sendFriendRequest.js')}}"></script>
 {% endblock %}

@@ -33,14 +33,12 @@ class DefaultController extends Controller
     /**
      * @Route("/contact")
      */
-    public function contactAction(Request $request)
+    public function contactAdminAction(Request $request)
     {
         $contact = new Contact();
 
         $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(ContactType::class, null, array(
-        ));
+        $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -56,7 +54,7 @@ class DefaultController extends Controller
 
             $message = \Swift_Message::newInstance()
                 ->setSubject($formData['subject'])
-                ->setFrom('masmixto@gmail.com')
+                ->setFrom($this->getParameter('mailer_user'))
                 ->setTo($formData['email'])
                 ->setBody($this->renderView('email/sendEmail.html.twig',array('name' => $formData['name'])),'text/html');
 

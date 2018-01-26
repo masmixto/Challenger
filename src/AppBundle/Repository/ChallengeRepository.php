@@ -10,8 +10,8 @@ namespace AppBundle\Repository;
  */
 class ChallengeRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function challangerUser($userId){
-
+    public function challangerUser($userId)
+    {
         $qb=$this->createQueryBuilder('o');
         return $qb
             ->where('o.userid=:userid')

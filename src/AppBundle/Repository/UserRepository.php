@@ -10,8 +10,8 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findByUsername($username){
-
+    public function findByUsername($username)
+    {
         $qb=$this->createQueryBuilder('o');
         return $qb
             ->where('o.username LIKE :username')
