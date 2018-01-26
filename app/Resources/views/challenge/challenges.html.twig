@@ -1,8 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_user_addchallenge') }}"><button class="btn btn-primary">Dodaj challenge</button></a>
-    <a href="{{ path('app_user_index') }}"><button class="btn btn-primary">Wróć</button></a>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+              <p>{{ message }}</p>
+        {% endfor %}
+    {% endfor %}
+
+
+   <a href="{{ path('app_challenge_addchallenge') }}"><button class="btn btn-primary">Dodaj challenge</button></a>
+    <a href="{{ path('app_default_index') }}"><button class="btn btn-primary">Wróć</button></a>
 
     <table class="table table-striped">
         <tr>
@@ -19,7 +26,7 @@
             <tr>
                     <th scope="row">{{ loop.index }}</th>
 
-                    <td> <a href="{{ path('app_user_checkchallenge', {'id': challenge.id}) }}">{{ challenge.exercise }}</a></td>
+                    <td> <a href="{{ path('app_challenge_checkchallenge', {'id': challenge.id}) }}">{{ challenge.exercise }}</a></td>
                     <td>{{ challenge.amount }}</td>
                     <td>{{ challenge.time|date("m/d/Y H:i:s") }}</td>
                     {% if challenge.done == 1 %}
@@ -45,7 +52,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script> var removeUrl = '{{ path('app_user_deletechallenge', {'id': 'elementId'}) }}'; </script>
+    <script> var removeUrl = '{{ path('app_challenge_deletechallenge', {'id': 'elementId'}) }}'; </script>
     <script src="{{ asset('js/deleteRow.js')}}"></script>
 
 {% endblock %}

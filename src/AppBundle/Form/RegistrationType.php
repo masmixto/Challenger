@@ -25,9 +25,6 @@ class RegistrationType extends AbstractType
             ->add('surname', TextType::class, array(
                  'label' => 'Nazwisko',
                 'required' => false,
-            ))
-            ->add('pesel', NumberType::class, array(
-                'label' => 'Pesel'
             ));
     }
 

@@ -10,8 +10,8 @@ namespace AppBundle\Repository;
  */
 class ExerciseRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function historyOfChallenge($exerciseId){
-
+    public function historyOfChallenge($exerciseId)
+    {
         $qb=$this->createQueryBuilder('o');
         return $qb
             ->where('o.exerciseId=:exerciseId')

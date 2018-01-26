@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tr>
+            <th class="column">#</th>
+            <th class="column">Imie</th>
+            <th class="column"></th>
+            <th></th>
+        </tr>
+        {% for friend in friends %}
+        <tr>
+            <th>{{ loop.index }}</th>
+            <td>{{ friend.username }}</td>
+            <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ friend.id }}" aria-hidden="true"></span></td>
+            <td><a href="{{ path('app_friend_block', {'id': friend.id}) }}">block</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script> var removeUrl = '{{ path('app_friend_delete', {'id': 'elementId'}) }}'; </script>
+    <script src="{{ asset('js/deleteRow.js')}}"></script>
+
+{% endblock %}

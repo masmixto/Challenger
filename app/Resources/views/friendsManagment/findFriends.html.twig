@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="SUBMIT" value="Szukaj" class="button-color">
+    {{ form_end(form) }}
+    <a href="{{ path('app_user_index') }}"><button>Wróć</button></a>
+
+    <table class="table">
+        <tr>
+            <td>#</td>
+            <th>User</th>
+            <th></th>
+        </tr>
+        {% for found in founded %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ found }}</td>
+            {#<td><a href="{{ path('app_user_addfriend', {'id': found.id}) }}"><span class="glyphicon glyphicon-plus js-addFriend" val="{{ found.id }}"></span></a></td>#}
+            <td><span class="glyphicon glyphicon-plus js-addFriend" val="{{ found.id }}"></span></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script> var sendFriendRequest = '{{ path('app_friend_add', {'id': 'elementId'}) }}'; </script>
+    <script src="{{ asset('js/sendFriendRequest.js')}}"></script>
+{% endblock %}
