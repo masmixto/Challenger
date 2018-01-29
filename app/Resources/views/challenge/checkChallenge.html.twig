@@ -22,6 +22,7 @@
     <h2>Do zrobienia: {{ repsToDo }}</h2>
     <h2>Zostało: {{ repsLeft }}</h2>
 <br/>
+    {% if historyOfChallenge is not empty %}
     <h2>Historia</h2>
 
     <table class="table table-striped">
@@ -44,6 +45,7 @@
         {% endfor %}
 
     </table>
+    {% endif %}
 {% endblock %}
 
 {% block stylesheets %}

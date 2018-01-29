@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    <a href="{{ path('app_friend_index') }}"><button>Wróć</button></a>
     <table class="table">
         <tr>
             <th class="column">#</th>
@@ -14,7 +14,7 @@
             <th>{{ loop.index }}</th>
             <td>{{ friend.username }}</td>
             <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ friend.id }}" aria-hidden="true"></span></td>
-            <td><a href="{{ path('app_friend_block', {'id': friend.id}) }}">block</a></td>
+            <td><a href="{{ path('app_friend_block', {'id': friend.id}) }}"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
         </tr>
         {% endfor %}
     </table>

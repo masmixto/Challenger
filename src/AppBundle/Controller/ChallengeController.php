@@ -156,7 +156,6 @@ class ChallengeController extends Controller
             $challenge->setDone(1);
         }
 
-
         return $this->render('challenge/checkChallenge.html.twig', array(
             'challenge' => $challenge,
             'historyOfChallenge' => $historyOfChallenge,
