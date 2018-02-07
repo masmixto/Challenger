@@ -39,7 +39,7 @@ class Challenge
     /**
      * @var string
      *
-     * @ORM\Column(name="time", type="datetime")
+     * @ORM\Column(name="time", type="date")
      */
     private $time;
 

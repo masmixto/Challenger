@@ -1511,3 +1511,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+.contact{
+  width: 795px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-buttons{
+  padding-bottom:20px;
+}

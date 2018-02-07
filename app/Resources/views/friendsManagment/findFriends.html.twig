@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="SUBMIT" value="Szukaj" class="button-color">
-    {{ form_end(form) }}
-    <a href="{{ path('app_user_index') }}"><button>Wróć</button></a>
 
+    <div class="findForm">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="SUBMIT" value="Szukaj" class="btn btn-primary">
+        {{ form_end(form) }}
+    </div>
+    {% if founded is not empty %}
     <table class="table">
         <tr>
             <td>#</td>
@@ -22,6 +24,7 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 {% endblock %}
 
 {% block stylesheets %}

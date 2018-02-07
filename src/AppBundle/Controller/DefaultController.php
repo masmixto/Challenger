@@ -33,7 +33,7 @@ class DefaultController extends Controller
     /**
      * @Route("/contact")
      */
-    public function contactAdminAction(Request $request)
+    public function contactAction(Request $request)
     {
         $contact = new Contact();
 

@@ -24,12 +24,34 @@ use Symfony\Component\HttpFoundation\Request;
 class FriendController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/friendList")
      */
-    public function indexAction(){
+    public function friendListAction(){
+        $friendsId=array();
+        $friends = array();
 
-        return $this->render('user/index.html.twig');
+        $userId = $this->getUser()->getId();
+        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId,$status=1);
+
+        if(isset($friendList)) {
+            foreach ($friendList as $friend) {
+                $friendsId[] = $this->checkUserIdInRealtionAction($friend['userOneId'], $friend['userTwoId']);
+            }
+
+            foreach($friendsId as $friendId){
+                $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
+                if($oneRecord!=null){
+                    $friends[]=$oneRecord;
+                }
+            }
+        }
+
+
+        return $this->render('friendsManagment/friendList.html.twig', array(
+            'friends' => $friends
+        ));
     }
+
 
 
     /**
@@ -98,34 +120,7 @@ class FriendController extends Controller
     }
 
 
-    /**
-     * @Route("/friendList")
-     */
-    public function friendListAction(){
-        $friendsId=array();
-        $friends = array();
 
-        $userId = $this->getUser()->getId();
-        $friendList = $this->getDoctrine()->getRepository('AppBundle:Relationships')->showFriends($userId,$status=1);
-
-        if(isset($friendList)) {
-            foreach ($friendList as $friend) {
-               $friendsId[] = $this->checkUserIdInRealtionAction($friend['userOneId'], $friend['userTwoId']);
-            }
-
-            foreach($friendsId as $friendId){
-                $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
-                if($oneRecord!=null){
-                    $friends[]=$oneRecord;
-                }
-            }
-        }
-
-
-        return $this->render('friendsManagment/friendList.html.twig', array(
-            'friends' => $friends
-        ));
-    }
 
 
     /**

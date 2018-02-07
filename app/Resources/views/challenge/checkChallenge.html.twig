@@ -7,7 +7,7 @@
     <br/>
     <strong>Wyzwanie:</strong> {{ challenge.exercise }} <br/>
     <strong>Ilosc:</strong> {{ challenge.amount }}<br/>
-    <strong>Czas na wyzwanie:</strong> {{ challenge.time|date("m/d/Y H:i:s")}} <br/>
+    <strong>Czas na wyzwanie:</strong> {{ challenge.time|date("d-m-Y")}} <br/>
     <strong>Status:</strong> {% if challenge.done == 1 %}
                 Ukończone
             {% elseif challenge.done == 2 %}
@@ -38,7 +38,7 @@
         <tr>
             <th scope="row">{{ loop.index }}</th>
             <td>{{ exercise.amount }}</td>
-            <td>{{ exercise.date|date("m/d/Y") }}</td>
+            <td>{{ exercise.date|date("d-m-y") }}</td>
             <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ exercise.id }}" aria-hidden="true"></span></td>
 
         </tr>

@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_friend_index') }}"><button>Wróć</button></a>
+    <div class="top-buttons">
+        <a href="{{ path('app_default_index') }}"><button class="btn btn-primary">Wróć</button></a>
+        <a href="{{ path('app_friend_find') }}"><button class="btn btn-primary">Szukaj znajomych</button></a>
+        <a href="{{ path('app_friend_requests') }}"><button class="btn btn-primary">Zapro</button></a>
+    </div>
     <table class="table">
         <tr>
             <th class="column">#</th>

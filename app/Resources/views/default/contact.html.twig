@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="contact">
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="SUBMIT" value="Dodaj" class="button-color">
+    <input type="SUBMIT" value="Dodaj" class="btn btn-primary" style="float: right">
     {{ form_end(form) }}
-    <a href="{{ path('app_user_index') }}"><button>Wróć</button></a>
+    </div>
 {% endblock %}
 
 {% block stylesheets %}

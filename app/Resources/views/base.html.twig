@@ -47,37 +47,41 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.default.min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/fosBundle.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/myStyle.css') }}"/>
     </head>
     <body>
-    <header role="banner" id="fh5co-header">
+    <navbar role="banner" id="fh5co-header">
         <div class="fluid-container">
             <nav class="navbar navbar-default">
                 <div class="navbar-header">
                     <!-- Mobile Toggle Menu Button -->
                     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                    <a class="navbar-brand" href="index.html">Challenge</a>
+                    <a class="navbar-brand" href="{{ path('app_default_index') }}">Challenge</a>
+
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
+
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#" data-nav-section="home"><span>Home</span></a></li>
-                        <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-                        <li><a href="#" data-nav-section="explore"><span>Project</span></a></li>
-                        <li><a href="#" data-nav-section="testimony"><span>Testimony</span></a></li>
-                        <li><a href="#" data-nav-section="pricing"><span>Pricing</span></a></li>
-                        <li><a href="#" data-nav-section="team"><span>Team</span></a></li>
-                        <li><a href="#" data-nav-section="blog"><span>Blog</span></a></li>
-                        <li><a href="#" data-nav-section="faq"><span>FAQ</span></a></li>
-                        <li class="call-to-action"><a class="sign-up" href="#"><span>Sign Up</span></a></li>
-                        <li class="call-to-action"><a class="log-in" href="#"><span>Login</span></a></li>
+                        <li><a href="{{ path('app_default_index') }}"><span>Home</span></a></li>
+                        <li><a href="{{ path('app_default_about') }}"><span>About</span></a></li>
+                        <li><a href="{{ path('app_default_contact') }}"><span>Contact</span></a></li>
+                        <li><a href="{{ path('app_challenge_index') }}" ><span>Challenge</span></a></li>
+                        <li><a href="{{ path('app_friend_friendlist') }}"><span>Friends</span></a></li>
+
+                        {% if app.user %}
+                            <li><a class="log-in" href="http://localhost:8000/logout"><span>Log Out</span></a></li>
+
+                        {% else %}
+                            <li><a class="log-in" href="http://localhost:8000/login"><span>Login</span></a></li>
+                            <li><a class="sign-up" href="http://localhost:8000/register"><span>Sign Up</span></a></li>
+                        {% endif %}
                     </ul>
-                </div>
             </nav>
         </div>
-    </header>
-
-
-
+    </navbar>
+    <div style="padding-top:60px">
         {% block body %}{% endblock %}
+    </div>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.countTo.js') }}"></script>

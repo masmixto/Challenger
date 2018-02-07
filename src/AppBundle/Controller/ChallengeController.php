@@ -50,26 +50,27 @@ class ChallengeController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-
              $time = $formData['Time'];
-             $actualDate = date('Y-m-d');
-             $endChallengeDate = date('Y-m-d', strtotime($actualDate. ' + '.$time.' days'));
-              $end = \DateTime::createFromFormat('Y-m-d', $endChallengeDate);
+            $time = intval($time);
+            $amount = intval($formData['Amount']);
+             $actualDate = date('d-m-Y');
+             $endChallengeDate = date('d-m-Y', strtotime($actualDate. ' + '.$time.' days'));
+            $endChallengeDateFormated = \DateTime::createFromFormat('d-m-Y', $endChallengeDate);
 
             $challenge = new Challenge();
-            $challenge->setAmount($formData['Amount']);
+            $challenge->setAmount($amount);
             $challenge->setExercise($formData['Exercise']);
-            $challenge->setTime($end);
+            $challenge->setTime($endChallengeDateFormated);
              $challenge->setUserId($userid);
             $challenge->setDone(0);
 
              $em->persist($challenge);
              $em->flush();
 
-            $this->addFlash(
-                'success',
-                'Dodane'
-            );
+//            $this->addFlash(
+//                'success',
+//                'Dodane'
+//            );
 
             return $this->redirectToRoute('app_challenge_index');
         }
