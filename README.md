@@ -1,5 +1,3 @@
-Symfony Standard Edition
-========================
 
 Welcome to the Symfony Standard Edition - a fully-functional Symfony
 application that you can use as the skeleton for your new applications.
@@ -70,3 +68,4 @@ Enjoy!
 [11]: https://symfony.com/doc/3.3/logging.html
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
+
