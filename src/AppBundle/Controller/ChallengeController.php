@@ -50,9 +50,8 @@ class ChallengeController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-             $time = $formData['Time'];
-            $time = intval($time);
-            $amount = intval($formData['Amount']);
+             $time = intval($formData['Time']);
+             $amount = intval($formData['Amount']);
              $actualDate = date('d-m-Y');
              $endChallengeDate = date('d-m-Y', strtotime($actualDate. ' + '.$time.' days'));
             $endChallengeDateFormated = \DateTime::createFromFormat('d-m-Y', $endChallengeDate);
@@ -66,11 +65,6 @@ class ChallengeController extends Controller
 
              $em->persist($challenge);
              $em->flush();
-
-//            $this->addFlash(
-//                'success',
-//                'Dodane'
-//            );
 
             return $this->redirectToRoute('app_challenge_index');
         }
@@ -95,11 +89,6 @@ class ChallengeController extends Controller
             $em->remove($challenge);
             $em->flush();
 
-            $this->addFlash(
-                'success',
-                'Usunięto rekord'
-            );
-
             return $this->json('Usunieto');
 
     }
@@ -117,10 +106,7 @@ class ChallengeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($exercise);
             $em->flush();
-            $this->addFlash(
-                'success',
-                'Usunięto rekord'
-            );
+
             return $this->json('Usuniete');
     }
 
