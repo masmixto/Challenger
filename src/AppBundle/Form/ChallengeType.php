@@ -10,7 +10,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,14 +21,14 @@ class ChallengeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Amount', NumberType::class, array(
-                'label' => 'Ilość'
+            ->add('amount', IntegerType::class, array(
+                'label' => 'Amount'
             ))
-            ->add('Exercise', TextType::class, array(
-                'label' => 'Ćwiczenie',
+            ->add('exercise', TextType::class, array(
+                'label' => 'Exercise',
             ))
-            ->add('Time', NumberType::class, array(
-                'label' => 'Ilość dni',
+            ->add('time', IntegerType::class, array(
+                'label' => 'Days',
             ));
 
     }

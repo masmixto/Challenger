@@ -27,6 +27,5 @@ function sendRequest(id)
         $('#overlay').css('display','block');
         $('#modal').css('display','block');
         $('#content').text('Friend request already sent');
-
     });
 }

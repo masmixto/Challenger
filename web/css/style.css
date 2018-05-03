@@ -24,13 +24,13 @@ body {
 }
 
 a {
-  color: white;
+  color: black;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
-  color: white;
+  color: black;
   outline: none;
 }
 

@@ -304,7 +304,7 @@ class ComposerStaticInitd9a246b3a99727499847d9d1972bf365
         'AppBundle\\AppBundle' => __DIR__ . '/../..' . '/src/AppBundle/AppBundle.php',
         'AppBundle\\Controller\\ChallengeController' => __DIR__ . '/../..' . '/src/AppBundle/Controller/ChallengeController.php',
         'AppBundle\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/AppBundle/Controller/DefaultController.php',
-        'AppBundle\\Controller\\FriendController' => __DIR__ . '/../..' . '/src/AppBundle/Controller/FriendController.php',
+        'AppBundle\\Controller\\FriendsController' => __DIR__ . '/../..' . '/src/AppBundle/Controller/FriendsController.php',
         'AppBundle\\Entity\\Challenge' => __DIR__ . '/../..' . '/src/AppBundle/Entity/Challenge.php',
         'AppBundle\\Entity\\Contact' => __DIR__ . '/../..' . '/src/AppBundle/Entity/Contact.php',
         'AppBundle\\Entity\\Exercise' => __DIR__ . '/../..' . '/src/AppBundle/Entity/Exercise.php',

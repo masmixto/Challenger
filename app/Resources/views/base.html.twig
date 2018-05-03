@@ -58,9 +58,7 @@
                     <!-- Mobile Toggle Menu Button -->
                     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
                     <a class="navbar-brand" href="{{ path('app_default_index') }}">Challenge</a>
-
                 </div>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ path('app_default_index') }}"><span>Home</span></a></li>
                         <li><a href="{{ path('app_default_about') }}"><span>About</span></a></li>
@@ -70,7 +68,6 @@
 
                         {% if app.user %}
                             <li><a class="log-in" href="http://localhost:8000/logout"><span>Log Out</span></a></li>
-
                         {% else %}
                             <li><a class="log-in" href="http://localhost:8000/login"><span>Login</span></a></li>
                             <li><a class="sign-up" href="http://localhost:8000/register"><span>Sign Up</span></a></li>
@@ -79,12 +76,16 @@
             </nav>
         </div>
     </navbar>
+
+    <!-- MODAL -->
+    <div id='overlay' style="display:none"></div>
+    <div id='modal' style="display:none">
+      <div id='content'></div>
+      <span id='close' onclick="closeModal()">X</span>
+    </div>
+
+
     <div style="padding-top:60px">
-        <div id='overlay' style="display:none"></div>
-        <div id='modal' style="display:none">
-          <div id='content'></div>
-          <span id='close' onclick="closeModal()">X</span>
-        </div>
         {% block body %}{% endblock %}
     </div>
 

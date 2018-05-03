@@ -9,7 +9,7 @@ return array(
     'AppBundle\\AppBundle' => $baseDir . '/src/AppBundle/AppBundle.php',
     'AppBundle\\Controller\\ChallengeController' => $baseDir . '/src/AppBundle/Controller/ChallengeController.php',
     'AppBundle\\Controller\\DefaultController' => $baseDir . '/src/AppBundle/Controller/DefaultController.php',
-    'AppBundle\\Controller\\FriendController' => $baseDir . '/src/AppBundle/Controller/FriendController.php',
+    'AppBundle\\Controller\\FriendsController' => $baseDir . '/src/AppBundle/Controller/FriendsController.php',
     'AppBundle\\Entity\\Challenge' => $baseDir . '/src/AppBundle/Entity/Challenge.php',
     'AppBundle\\Entity\\Contact' => $baseDir . '/src/AppBundle/Entity/Contact.php',
     'AppBundle\\Entity\\Exercise' => $baseDir . '/src/AppBundle/Entity/Exercise.php',

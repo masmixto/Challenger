@@ -1,38 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_challenge_addtochallenge', {'id': challenge.id}) }}"><button class="btn btn-primary">Dodaj repsy</button></a>
-    <a href="{{ path('app_challenge_index') }}"><button class="btn btn-primary">Wróć</button></a>
+    <a href="{{ path('app_challenge_addtochallenge', {'id': challenge.id}) }}">
+        <button class="btn btn-primary">Add repetition</button>
+    </a>
+    <a href="{{ path('app_challenge_index') }}">
+        <button class="btn btn-primary">Back</button>
+    </a>
+    <div style="margin: 15px;">
+        <strong>Challenge:</strong> {{ challenge.exercise }} <br/>
+        <strong>Amount:</strong> {{ challenge.amount }}<br/>
+        <strong>Challenge until:</strong> {{ challenge.time|date("d-m-Y")}} <br/>
+        <strong>Status:</strong> {% if challenge.done == 1 %}
+                    Done
+                {% else %}
+                    In progress
+                {% endif %}
+    </div>
 
-    <br/>
-    <strong>Wyzwanie:</strong> {{ challenge.exercise }} <br/>
-    <strong>Ilosc:</strong> {{ challenge.amount }}<br/>
-    <strong>Czas na wyzwanie:</strong> {{ challenge.time|date("d-m-Y")}} <br/>
-    <strong>Status:</strong> {% if challenge.done == 1 %}
-                Ukończone
-            {% elseif challenge.done == 2 %}
-                Nie ukończone
-            {% else %}
-                 W trakcie
-            {% endif %}
-    <br/>
-
-<br/>
-<br/>
-    <h2>Do zrobienia: {{ repsToDo }}</h2>
-    <h2>Zostało: {{ repsLeft }}</h2>
-<br/>
+    <h2>To do: {{ repsToDo }}</h2>
+    <h2>Left: {{ repsLeft }}</h2>
     {% if historyOfChallenge is not empty %}
-    <h2>Historia</h2>
+    <h2>History</h2>
 
     <table class="table table-striped">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Ilosc</th>
-            <th scope="col">Data dodania</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Added date</th>
             <th scope="col"></th>
             <th scope="col"></th>
-
         </tr>
         {% for exercise in historyOfChallenge %}
         <tr>
@@ -40,10 +37,8 @@
             <td>{{ exercise.amount }}</td>
             <td>{{ exercise.date|date("d-m-y") }}</td>
             <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ exercise.id }}" aria-hidden="true"></span></td>
-
         </tr>
         {% endfor %}
-
     </table>
     {% endif %}
 {% endblock %}

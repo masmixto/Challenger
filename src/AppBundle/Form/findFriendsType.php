@@ -20,7 +20,7 @@ class findFriendsType extends AbstractType
     {
         $builder
             ->add('nick', TextType::class, array(
-                'label' => 'nick'
+                'label' => 'Nick'
             ));
 
 

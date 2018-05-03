@@ -15,10 +15,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('default/index.html.twig');
     }
 
     /**
@@ -26,7 +23,6 @@ class DefaultController extends Controller
      */
     public function aboutAction()
     {
-        // replace this example code with whatever you need
         return $this->render('default/about.html.twig');
     }
 
@@ -42,7 +38,6 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            var_dump($formData);
             $contact->setName($formData['name']);
             $contact->setEmail($formData['email']);
             $contact->setSubject($formData['subject']);
@@ -50,7 +45,6 @@ class DefaultController extends Controller
 
             $em->persist($contact);
             $em->flush();
-
 
             $message = \Swift_Message::newInstance()
                 ->setSubject($formData['subject'])
@@ -60,7 +54,6 @@ class DefaultController extends Controller
 
             $this->get('mailer')->send($message);
         }
-
 
         return $this->render('default/contact.html.twig', array(
             'form' => $form->createView()

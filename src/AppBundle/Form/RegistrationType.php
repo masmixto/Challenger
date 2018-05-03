@@ -19,12 +19,10 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Imie',
-                'required' => false,
+                'label' => 'Name'
             ))
             ->add('surname', TextType::class, array(
-                 'label' => 'Nazwisko',
-                'required' => false,
+                 'label' => 'Surname'
             ));
     }
 

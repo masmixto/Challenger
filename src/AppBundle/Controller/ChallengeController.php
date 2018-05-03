@@ -29,10 +29,10 @@ class ChallengeController extends Controller
      * @Route("/")
      */
     public function indexAction(){
-        $userid = $this->getUser()->getId();
-        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->challangerUser($userid);
+        $userID = $this->getUser()->getId();
+        $challenges = $this->getDoctrine()->getRepository('AppBundle:Challenge')->findBy(array('userid' => $userID));
 
-        return $this->render('challenge/challenges.html.twig', array(
+        return $this->render('challenge/list.html.twig', array(
             'challenges' => $challenges
         ));
     }
@@ -42,33 +42,30 @@ class ChallengeController extends Controller
      * @Route("/addChallenge")
      */
     public function addChallengeAction(Request $request){
-        $userid = $this->getUser()->getId();
+        $userID = $this->getUser()->getId();
 
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ChallengeType::class);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-             $time = intval($formData['Time']);
-             $amount = intval($formData['Amount']);
-             $actualDate = date('d-m-Y');
-             $endChallengeDate = date('d-m-Y', strtotime($actualDate. ' + '.$time.' days'));
-            $endChallengeDateFormated = \DateTime::createFromFormat('d-m-Y', $endChallengeDate);
+            $actualDate = date('d-m-Y');
+            $endChallengeDate = date('d-m-Y', strtotime($actualDate. ' + '.$formData['time'].' days'));
+            $date = \DateTime::createFromFormat("d-m-Y", $endChallengeDate);
 
             $challenge = new Challenge();
-            $challenge->setAmount($amount);
-            $challenge->setExercise($formData['Exercise']);
-            $challenge->setTime($endChallengeDateFormated);
-             $challenge->setUserId($userid);
-            $challenge->setDone(0);
+            $challenge->setAmount($formData['amount']);
+            $challenge->setExercise($formData['exercise']);
+            $challenge->setTime($date);
+            $challenge->setUserId($userID);
 
-             $em->persist($challenge);
-             $em->flush();
+            $em->persist($challenge);
+            $em->flush();
 
             return $this->redirectToRoute('app_challenge_index');
         }
-
 
         return $this->render('challenge/addChallenge.html.twig', array(
             'form' => $form->createView()
@@ -81,33 +78,34 @@ class ChallengeController extends Controller
      */
     public function deleteChallengeAction(Challenge $challenge)
     {
-        $id = $challenge->getId();
+        $challengeID = $challenge->getId();
         if (!$challenge) {
-            throw $this->createNotFoundException('Nie znaleziono rekordu o id: ' . $id);
+            throw $this->createNotFoundException('Cannot find record with id: ' . $challengeID);
         }
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($challenge);
-            $em->flush();
 
-            return $this->json('Usunieto');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($challenge);
+        $em->flush();
 
+        return $this->json('Usunieto');
     }
 
 
     /**
-     * @Route("/checkChallenge/{id}/deleteExercise")
+     * @Route("/checkChallenge/delete/{id}")
      */
     public function deleteExerciseAction(Exercise $exercise)
     {
-        $id = $exercise->getId();
+        $exerciseID = $exercise->getId();
         if (!$exercise) {
-            throw $this->createNotFoundException('Nie znaleziono rekordu o id: ' . $id);
+            throw $this->createNotFoundException('Cannot find record with id: ' . $exerciseID);
         }
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($exercise);
-            $em->flush();
 
-            return $this->json('Usuniete');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($exercise);
+        $em->flush();
+
+        return $this->json('Usuniete');
     }
 
 
@@ -117,19 +115,19 @@ class ChallengeController extends Controller
     public function checkChallengeAction(Challenge $challenge){
         $repsToDo = $challenge->getAmount();
         $challangeId = $challenge->getId();
-        $sum = 0;
+        $sum = 0; //initialize
+        $em = $this->getDoctrine()->getManager();
 
-        $historyOfChallenge = $this->getDoctrine()->getRepository('AppBundle:Exercise')->historyOfChallenge($challangeId);
+        $historyOfChallenge = $this->getDoctrine()->getRepository('AppBundle:Exercise')->findBy(array('id'=>$challangeId));
 
         foreach($historyOfChallenge as $reps){
             $rep = $reps->getAmount();
-            $sum+=$rep;
+            $sum += $rep;
         }
         $repsLeft = $repsToDo-$sum;
 
-        if($repsLeft<=0){
+        if($repsLeft <= 0){
             $challenge->setDone(1);
-            $em=$this->getDoctrine()->getManager();
             $em->persist($challenge);
             $em->flush();
             $repsLeft=0;
@@ -137,7 +135,7 @@ class ChallengeController extends Controller
 
         $endChallengeTime = $challenge->getTime();
 
-        $actualDate = date('Y-m-d H:i:s');
+        $actualDate = date('Y-m-d');
 
         if($endChallengeTime < $actualDate){
             $challenge->setDone(1);
@@ -157,16 +155,14 @@ class ChallengeController extends Controller
      */
     public function addToChallengeAction(Request $request, Challenge $challenge){
         $challengeId = $challenge->getId();
-
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ExerciseChallengeType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-
-            $actualDate = date('Y-m-d');
-            $date = \DateTime::createFromFormat('Y-m-d', $actualDate);
+            $actualDate = date("d-m-Y");
+            $date = \DateTime::createFromFormat("d-m-Y", $actualDate);
 
             $exercise = new Exercise();
             $exercise->setAmount($formData['Amount']);

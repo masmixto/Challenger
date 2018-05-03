@@ -56,9 +56,12 @@ class Challenge
      * @ORM\Column(name="userid", type="string", length=255)
      * @ORM\ManyToOne(targetEntity="user", inversedBy="id")
      */
-
     private $userid;
 
+
+    public function __construct(){
+        $this->done = 0;
+    }
 
     /**
      * Get id
@@ -174,4 +177,3 @@ class Challenge
         $this->done = $done;
     }
 }
-

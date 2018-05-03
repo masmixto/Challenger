@@ -22,7 +22,7 @@ class ExerciseChallengeType extends AbstractType
     {
         $builder
             ->add('Amount', NumberType::class, array(
-                'label' => 'Ilość'
+                'label' => 'Amount'
             ));
     }
 

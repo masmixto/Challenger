@@ -20,5 +20,12 @@ function deleteRow(thisElement, id)
         async: true
     }).success(function(response) {
         jQuery(thisElement).fadeOut("normal");
+        $('#overlay').css('display','block');
+        $('#modal').css('display','block');
+        $('#content').text('Record deleted');
+    }).fail(function(){
+        $('#overlay').css('display','block');
+        $('#modal').css('display','block');
+        $('#content').text('Something went wrong');
     });
 }
