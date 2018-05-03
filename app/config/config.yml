@@ -81,4 +81,4 @@ fos_user:
            form:
               type: AppBundle\Form\RegistrationType
            confirmation:
-              enabled: true
+              enabled: false #turn off for test

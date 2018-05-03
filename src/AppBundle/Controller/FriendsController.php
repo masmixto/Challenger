@@ -18,16 +18,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="friend_controller")
- * @Route("/friend")
+ * @ORM\Table(name="friends_controller")
+ * @Route("/friends")
  */
-class FriendController extends Controller
+class FriendsController extends Controller
 {
     /**
-     * @Route("/friendList")
+     * @Route("/list")
      */
-    public function friendListAction(){
-        $friendsId=array();
+    public function listAction(){
+        $friendsId = array();
         $friends = array();
 
         $userId = $this->getUser()->getId();
@@ -40,14 +40,14 @@ class FriendController extends Controller
 
             foreach($friendsId as $friendId){
                 $oneRecord = $this->getDoctrine()->getRepository('AppBundle:User')->find($friendId);
-                if($oneRecord!=null){
-                    $friends[]=$oneRecord;
+                if($oneRecord != null){
+                    $friends[] = $oneRecord;
                 }
             }
         }
 
 
-        return $this->render('friendsManagment/friendList.html.twig', array(
+        return $this->render('friends/list.html.twig', array(
             'friends' => $friends
         ));
     }
@@ -60,8 +60,7 @@ class FriendController extends Controller
     public function findAction(Request $request){
 
         $found = null;
-        $form = $this->createForm(findFriendsType::class, null, array(
-        ));
+        $form = $this->createForm(findFriendsType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -70,7 +69,7 @@ class FriendController extends Controller
         }
 
 
-        return $this->render('friendsManagment/findFriends.html.twig',array(
+        return $this->render('friends/find.html.twig',array(
             'form' => $form->createView(),
             'founded' => $found
         ));
@@ -146,7 +145,7 @@ class FriendController extends Controller
         }
 
 
-        return $this->render('friendsManagment/friendsRequest.html.twig', array(
+        return $this->render('friends/request.html.twig', array(
             'friends' => $friends
         ));
     }
@@ -227,7 +226,7 @@ class FriendController extends Controller
         }
 
 
-        return $this->render('friendsManagment/friendList.html.twig', array(
+        return $this->render('friends/friendList.html.twig', array(
             'friends' => $friends
         ));
     }

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_friend_friendlist') }}"><button>Wróć</button></a>
+    <a href="{{ path('app_friends_list') }}"><button>Wróć</button></a>
     <table class="table">
         <tr>
             <th class="column">#</th>
@@ -12,8 +12,8 @@
         <tr>
             <th>{{ loop.index }}</th>
             <td>{{ friend.username }}</td>
-            <td><a href="{{ path('app_friend_accept', {'id': friend.id}) }}"><span class="glyphicon glyphicon-ok js-acceptFriendRequest" val="{{ friend.id }}"></span></a></td>
-            <td><a href="{{ path('app_friend_block', {'id': friend.id}) }}"><span class="glyphicon glyphicon-minus-sign" val="{{ friend.id }}"></span></a></td>
+            <td><a href="{{ path('app_friends_accept', {'id': friend.id}) }}"><span class="glyphicon glyphicon-ok js-acceptFriendRequest" val="{{ friend.id }}"></span></a></td>
+            <td><a href="{{ path('app_friends_block', {'id': friend.id}) }}"><span class="glyphicon glyphicon-minus-sign" val="{{ friend.id }}"></span></a></td>
         </tr>
         {% endfor %}
     </table>
@@ -26,6 +26,6 @@
 
 
 {% block javascripts %}
-    <script> var acceptFriendRequest = '{{ path('app_friend_accept', {'id': 'elementId'}) }}'; </script>
+    <script> var acceptFriendRequest = '{{ path('app_friends_accept', {'id': 'elementId'}) }}'; </script>
     <script src="{{ asset('js/acceptFriendRequest.js')}}"></script>
 {% endblock %}

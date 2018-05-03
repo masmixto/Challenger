@@ -5,9 +5,7 @@ $(document).ready(function () {
     $('.js-addFriend').on('click', function (e)
     {
         e.preventDefault(); //zadnych automatycznych zachowan przegladarki
-
-        sendRequest($(this).attr('val')); //(thisElement, id)
-
+        sendRequest($(this).attr('val'));
     });
 });
 
@@ -22,7 +20,13 @@ function sendRequest(id)
         type: 'POST',
         async: true
     }).success(function(response) {
-        console.log('poszlo');
-       // jQuery(thisElement).fadeOut("normal");
+        $('#overlay').css('display','block');
+        $('#modal').css('display','block');
+        $('#content').text('Friend request sent');
+    }).fail(function() {
+        $('#overlay').css('display','block');
+        $('#modal').css('display','block');
+        $('#content').text('Friend request already sent');
+
     });
 }

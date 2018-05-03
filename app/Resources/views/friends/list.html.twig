@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="wrapper">
+    <div class="top-buttons text-center">
+        <a href="{{ path('app_default_index') }}"><button class="btn btn-primary">Back</button></a>
+        <a href="{{ path('app_friends_find') }}"><button class="btn btn-primary">Find friend by nickname</button></a>
+        <a href="{{ path('app_friends_requests') }}"><button class="btn btn-primary">Friend requests</button></a>
+    </div>
+    {% if friends is not empty %}
+    <table class="table table-striped ">
+        <tr>
+            <th class="column">#</th>
+            <th class="column">Name</th>
+            <th class="column"></th>
+            <th></th>
+        </tr>
+        {% for friend in friends %}
+        <tr>
+            <th>{{ loop.index }}</th>
+            <td>{{ friend.username }}</td>
+            <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ friend.id }}" aria-hidden="true"></span></td>
+            <td><a href="{{ path('app_friends_block', {'id': friend.id}) }}"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script> var removeUrl = '{{ path('app_friends_delete', {'id': 'elementId'}) }}'; </script>
+    <script src="{{ asset('js/deleteRow.js')}}"></script>
+
+{% endblock %}

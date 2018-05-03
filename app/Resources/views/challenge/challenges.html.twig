@@ -1,45 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-              <p>{{ message }}</p>
-        {% endfor %}
-    {% endfor %}
-
-
-
-    <div class="challenges">
-    <table class="table table-striped ">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Ćwiczenie</th>
-            <th scope="col">Ilość</th>
-            <th scope="col">Czas zakończenia</th>
-            <th scope="col">Status</th>
-            <th scope="col"></th>
-        </tr>
-        {% for challenge in challenges %}
+    <div class="wrapper">
+        {% if challenges is not empty %}
+        <table class="table table-striped ">
             <tr>
-                    <th scope="row">{{ loop.index }}</th>
-
-                    <td> <a href="{{ path('app_challenge_checkchallenge', {'id': challenge.id}) }}">{{ challenge.exercise }}</a></td>
-                    <td>{{ challenge.amount }}</td>
-                    <td>{{ challenge.time|date("d-m-Y") }}</td>
-                    {% if challenge.done == 1 %}
-                        <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-                    {% elseif challenge.done == 2 %}
-                     <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-                     {% else %}
-                    <td>
-                      <span class="glyphicon glyphicon-random"></span>
-                    </td>
-                    {% endif %}
-                <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ challenge.id }}" aria-hidden="true"></span></td>
+                <th scope="col">#</th>
+                <th scope="col">Exercise</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Days left</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
             </tr>
-        {% endfor %}
-    </table>
-        <a href="{{ path('app_challenge_addchallenge') }}"><button class="btn btn-primary center-block" >Dodaj challenge</button></a>
+            {% for challenge in challenges %}
+                <tr>
+                        <th scope="row">{{ loop.index }}</th>
+
+                        <td> <a href="{{ path('app_challenge_checkchallenge', {'id': challenge.id}) }}">{{ challenge.exercise }}</a></td>
+                        <td>{{ challenge.amount }}</td>
+                        <td>{{ challenge.time|date("d-m-Y") }}</td>
+                        {% if challenge.done == 1 %}
+                            <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                        {% elseif challenge.done == 2 %}
+                         <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                         {% else %}
+                        <td>
+                          <span class="glyphicon glyphicon-random"></span>
+                        </td>
+                        {% endif %}
+                    <td><span class="glyphicon glyphicon-trash js-deleteRow" val="{{ challenge.id }}" aria-hidden="true"></span></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        <a href="{{ path('app_challenge_addchallenge') }}"><button class="btn btn-primary center-block" >Add challenge</button></a>
     </div>
 
 {% endblock %}

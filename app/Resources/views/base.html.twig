@@ -66,7 +66,7 @@
                         <li><a href="{{ path('app_default_about') }}"><span>About</span></a></li>
                         <li><a href="{{ path('app_default_contact') }}"><span>Contact</span></a></li>
                         <li><a href="{{ path('app_challenge_index') }}" ><span>Challenge</span></a></li>
-                        <li><a href="{{ path('app_friend_friendlist') }}"><span>Friends</span></a></li>
+                        <li><a href="{{ path('app_friends_list') }}"><span>Friends</span></a></li>
 
                         {% if app.user %}
                             <li><a class="log-in" href="http://localhost:8000/logout"><span>Log Out</span></a></li>
@@ -80,8 +80,21 @@
         </div>
     </navbar>
     <div style="padding-top:60px">
+        <div id='overlay' style="display:none"></div>
+        <div id='modal' style="display:none">
+          <div id='content'></div>
+          <span id='close' onclick="closeModal()">X</span>
+        </div>
         {% block body %}{% endblock %}
     </div>
+
+    <script>
+        function closeModal(){
+            $("#overlay").css('display','none');
+            $("#modal").css('display','none');
+            return false;
+        }
+    </script>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.countTo.js') }}"></script>
